@@ -1,0 +1,36 @@
+version: "3"
+services:
+  postgres:
+      restart: always
+      image: postgres:9.6
+      environment:
+        - POSTGRES_USER=${DB_USER_NAME}
+        - POSTGRES_PASSWORD=${DB_PASSWORD}
+        - POSTGRES_DB=${DB_NAME}
+      volumes:
+        - ../postgres-data/postgres:/var/lib/postgresql/data
+      ports:
+        - "${DB_PORT}:5432"
+  server:
+    build: .
+    restart: always
+    ports:
+      - "${PORT}:3000"
+    links:
+      - postgres
+    depends_on:
+      - postgres
+    volumes:
+      - .:/home/${USERNAME}/app:cached
+      - $HOME/.ssh/:/home/${USERNAME}/.ssh/
+  pgadmin:
+    image: dpage/pgadmin4
+    ports:
+      - "4000:80"
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${DB_USER_NAME}@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=${DB_PASSWORD}
+    links:
+      - postgres
+    depends_on:
+      - postgres
