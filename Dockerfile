@@ -2,7 +2,7 @@ ARG RUBY_VERSION=2.7.5
 
 FROM ruby:${RUBY_VERSION}
 
-RUN apt-get update -qq && apt-get install -y git curl sudo postgresql-client ca-certificates build-essential  && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
+RUN apt-get update -qq && apt-get install -y git curl sudo postgresql-client ca-certificates build-essential zsh && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
 # RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
 # RUN apt-get update && apt-get install -y nodejs
@@ -23,6 +23,9 @@ RUN gem install rails webdrivers solargraph rubocop
 
 USER ${USER_UID}:${USER_GID}
 
+RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 
 WORKDIR /home/${USERNAME}/app
+
+ENTRYPOINT ["zsh"]
