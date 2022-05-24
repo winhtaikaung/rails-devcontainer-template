@@ -24,7 +24,9 @@
 		"rebornix.Ruby",
 		"castwide.solargraph",
 		"kaiwood.endwise",
-		"connorshea.vscode-ruby-test-adapter"
+		"connorshea.vscode-ruby-test-adapter",
+		"bung87.rails",
+		"aki77.rails-db-schema"
 	],
 	
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.

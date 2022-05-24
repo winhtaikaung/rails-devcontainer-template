@@ -4,8 +4,9 @@ FROM ruby:${RUBY_VERSION}
 
 RUN apt-get update -qq && apt-get install -y git curl sudo postgresql-client ca-certificates build-essential zsh && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
-# RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
-# RUN apt-get update && apt-get install -y nodejs
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
+RUN apt-get update && apt-get install -y nodejs
+
 
 ENV USERNAME=rubydev \
     USER_UID=2001 \
